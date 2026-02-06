@@ -2,6 +2,7 @@ package org.example.dao;
 
 import org.example.entity.User;
 import java.util.List;
+import java.util.UUID;
 
 public interface UserDao {
     void save(User user);

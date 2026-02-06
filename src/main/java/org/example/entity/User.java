@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +21,12 @@ public class User {
 
     public User() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public User(String name, String email, int age) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
     }
 
     public Long getId() {

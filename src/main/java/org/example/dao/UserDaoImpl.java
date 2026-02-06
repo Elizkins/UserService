@@ -5,6 +5,7 @@ import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;
+import java.util.UUID;
 
 public class UserDaoImpl implements UserDao {
 

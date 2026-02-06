@@ -4,6 +4,8 @@ package org.example;
 import org.example.dao.UserDao;
 import org.example.dao.UserDaoImpl;
 import org.example.entity.User;
+import org.example.service.UserService;
+import org.example.service.UserServiceImpl;
 
 import java.util.Scanner;
 
@@ -17,6 +19,8 @@ public class Main {
 
     static void main() {
         UserDao userDao = new UserDaoImpl();
+        UserService userService = new UserServiceImpl(userDao);
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -47,7 +51,7 @@ public class Main {
                     user.setAge(age);
 
                     try {
-                        userDao.save(user);
+                        userService.create(user);
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                     }
@@ -58,7 +62,7 @@ public class Main {
                     if (id == null) break;
 
                     try {
-                        System.out.println(userDao.findById(id));
+                        System.out.println(userService.getById(id));
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                     }
@@ -66,7 +70,7 @@ public class Main {
 
                 case 3 -> {
                     try {
-                        userDao.findAll().forEach(System.out::println);
+                        userService.getAll().forEach(System.out::println);
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                     }
@@ -78,7 +82,7 @@ public class Main {
 
                     User user = null;
                     try {
-                        user = userDao.findById(id);
+                        user = userService.getById(id);
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                         break;
@@ -90,7 +94,7 @@ public class Main {
 
                     user.setName(readString(scanner, "New name: "));
                     try {
-                        userDao.update(user);
+                        userService.update(user);
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                     }
@@ -101,7 +105,7 @@ public class Main {
                     if (id == null) break;
 
                     try {
-                        userDao.delete(id);
+                        userService.delete(id);
                     } catch (Exception e) {
                         System.out.println(ERROR_WITH_DATABASE_CONNECTION);
                     }
